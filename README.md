@@ -1,3 +1,4 @@
-# Simple Starter
+# Automaton-Domain
 
-Simple JS build starter for simple, client-only demos.
+Client-Side domain editor for automaton
+

@@ -1,0 +1,13 @@
+import ReactDOM from "react-dom";
+import React from "react";
+
+export default function renderToRoot(element)
+{
+    return new Promise(resolve => {
+        ReactDOM.render(
+            element,
+            document.getElementById("root"),
+            resolve
+        )
+    })
+}

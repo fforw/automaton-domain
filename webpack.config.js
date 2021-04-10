@@ -35,9 +35,30 @@ module.exports = (env,argv) => {
                 filename: "bundle-[name]-[chunkhash].js",
                 chunkFilename: "bundle-[name]-[chunkhash].js",
 
-                library: "Demo",
+                library: "App",
                 libraryTarget: "var"
             },
+
+            // aliases to be able to use "yarn link automaton-js"
+            resolve: {
+                alias: {
+                    "react": path.resolve("./node_modules/react"),
+                    "react-dom": path.resolve("./node_modules/react-dom"),
+                    "create-react-class": path.resolve("./node_modules/create-react-class"),
+                    "mobx": path.resolve("./node_modules/mobx"),
+                    "domainql-form": path.resolve("./node_modules/domainql-form"),
+                    "reactstrap": path.resolve("./node_modules/reactstrap"),
+                    "mobx-react": path.resolve("./node_modules/mobx-react"),
+                    "mobx-react-lite": path.resolve("./node_modules/mobx-react-lite"),
+                    "mobx-react-devtools": path.resolve("./node_modules/mobx-react-devtools"),
+                    "mobx-utils": path.resolve("./node_modules/mobx-utils"),
+                    "history": path.resolve("./node_modules/history"),
+                    "bignumber.js": path.resolve("./node_modules/bignumber.js"),
+                    "react-calendar": path.resolve("./node_modules/react-calendar"),
+                    "luxon": path.resolve("./node_modules/luxon")
+                }
+            },
+
 
 
             plugins: [
@@ -70,6 +91,12 @@ module.exports = (env,argv) => {
                         patterns: [
                             {
                                 from: "media/**/*"
+                            },
+                            {
+                                from: "css/**/*"
+                            },
+                            {
+                                from: "webfonts/**/*"
                             }
                         ]
                     }
