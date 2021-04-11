@@ -232,6 +232,20 @@
                     "defaultValue": null
                 },
                 {
+                    "name": "type",
+                    "description": "Type of the entity.",
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "defaultValue": null
+                },
+                {
                     "name": "fields",
                     "description": "Conflicted fields. Will be both conflicts on scalar fields as well as conflicts on object fields representing\nforeign key and many-to-many conflicts and the informational/user-facing data to resolve those.",
                     "type": {
@@ -245,20 +259,6 @@
                                 "name": "MergeConflictFieldInput",
                                 "ofType": null
                             }
-                        }
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "type",
-                    "description": "Type of the entity.",
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
                         }
                     },
                     "defaultValue": null
@@ -311,6 +311,35 @@
             "inputFields": null,
             "interfaces": null,
             "enumValues": null,
+            "possibleTypes": null
+        },
+        {
+            "kind": "ENUM",
+            "name": "TargetField",
+            "description": null,
+            "fields": null,
+            "inputFields": null,
+            "interfaces": null,
+            "enumValues": [
+                {
+                    "name": "NONE",
+                    "description": null,
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "ONE",
+                    "description": null,
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "MANY",
+                    "description": null,
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                }
+            ],
             "possibleTypes": null
         },
         {
@@ -658,6 +687,22 @@
                     "deprecationReason": null
                 },
                 {
+                    "name": "type",
+                    "description": "Type of the entity.",
+                    "args": [],
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
                     "name": "fields",
                     "description": "Conflicted fields. Will be both conflicts on scalar fields as well as conflicts on object fields representing\nforeign key and many-to-many conflicts and the informational/user-facing data to resolve those.",
                     "args": [],
@@ -672,22 +717,6 @@
                                 "name": "MergeConflictField",
                                 "ofType": null
                             }
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "type",
-                    "description": "Type of the entity.",
-                    "args": [],
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
                         }
                     },
                     "isDeprecated": false,
@@ -1291,6 +1320,97 @@
         },
         {
             "kind": "OBJECT",
+            "name": "BazLink",
+            "description": "Associative entity m-to-n connecting Baz and BazValue",
+            "fields": [
+                {
+                    "name": "id",
+                    "description": "DB column 'id'",
+                    "args": [],
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "bazId",
+                    "description": "DB foreign key column 'baz_id'",
+                    "args": [],
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "baz",
+                    "description": "Target of 'baz_id'",
+                    "args": [],
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "OBJECT",
+                            "name": "Baz",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "valueId",
+                    "description": "DB foreign key column 'value_id'",
+                    "args": [],
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "value",
+                    "description": "Target of 'value_id'",
+                    "args": [],
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "OBJECT",
+                            "name": "BazValue",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                }
+            ],
+            "inputFields": null,
+            "interfaces": [],
+            "enumValues": null,
+            "possibleTypes": null
+        },
+        {
+            "kind": "OBJECT",
             "name": "QuxC",
             "description": "Catalog-like connected via id foreign keys to QuxMain twice",
             "fields": [
@@ -1496,97 +1616,6 @@
                 }
             ],
             "interfaces": null,
-            "enumValues": null,
-            "possibleTypes": null
-        },
-        {
-            "kind": "OBJECT",
-            "name": "BazLink",
-            "description": "Associative entity m-to-n connecting Baz and BazValue",
-            "fields": [
-                {
-                    "name": "id",
-                    "description": "DB column 'id'",
-                    "args": [],
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "bazId",
-                    "description": "DB foreign key column 'baz_id'",
-                    "args": [],
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "baz",
-                    "description": "Target of 'baz_id'",
-                    "args": [],
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "OBJECT",
-                            "name": "Baz",
-                            "ofType": null
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "valueId",
-                    "description": "DB foreign key column 'value_id'",
-                    "args": [],
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "value",
-                    "description": "Target of 'value_id'",
-                    "args": [],
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "OBJECT",
-                            "name": "BazValue",
-                            "ofType": null
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                }
-            ],
-            "inputFields": null,
-            "interfaces": [],
             "enumValues": null,
             "possibleTypes": null
         },
@@ -1883,16 +1912,6 @@
             "possibleTypes": null
         },
         {
-            "kind": "SCALAR",
-            "name": "Byte",
-            "description": "Built-in Byte as Int",
-            "fields": null,
-            "inputFields": null,
-            "interfaces": null,
-            "enumValues": null,
-            "possibleTypes": null
-        },
-        {
             "kind": "INPUT_OBJECT",
             "name": "MergeConflictFieldInput",
             "description": "A field within a merge conflict.",
@@ -1972,96 +1991,11 @@
             "possibleTypes": null
         },
         {
-            "kind": "INPUT_OBJECT",
-            "name": "RuleFieldInput",
-            "description": null,
+            "kind": "SCALAR",
+            "name": "Byte",
+            "description": "Built-in Byte as Int",
             "fields": null,
-            "inputFields": [
-                {
-                    "name": "mode",
-                    "description": "Returns the fixed mode for this field. How this mode is applied depends on the #modePolicy.",
-                    "type": {
-                        "kind": "ENUM",
-                        "name": "FieldMode",
-                        "ofType": null
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "tooltip",
-                    "description": null,
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "String",
-                        "ofType": null
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "length",
-                    "description": null,
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "Int",
-                        "ofType": null
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "name",
-                    "description": null,
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "String",
-                        "ofType": null
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "placeholder",
-                    "description": null,
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "String",
-                        "ofType": null
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "validations",
-                    "description": null,
-                    "type": {
-                        "kind": "LIST",
-                        "name": null,
-                        "ofType": {
-                            "kind": "INPUT_OBJECT",
-                            "name": "RuleFieldValidationInput",
-                            "ofType": null
-                        }
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "modePolicy",
-                    "description": null,
-                    "type": {
-                        "kind": "ENUM",
-                        "name": "ModePolicy",
-                        "ofType": null
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "required",
-                    "description": null,
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "Boolean",
-                        "ofType": null
-                    },
-                    "defaultValue": null
-                }
-            ],
+            "inputFields": null,
             "interfaces": null,
             "enumValues": null,
             "possibleTypes": null
@@ -2228,6 +2162,101 @@
                     "type": {
                         "kind": "SCALAR",
                         "name": "Int",
+                        "ofType": null
+                    },
+                    "defaultValue": null
+                }
+            ],
+            "interfaces": null,
+            "enumValues": null,
+            "possibleTypes": null
+        },
+        {
+            "kind": "INPUT_OBJECT",
+            "name": "RuleFieldInput",
+            "description": null,
+            "fields": null,
+            "inputFields": [
+                {
+                    "name": "mode",
+                    "description": "Returns the fixed mode for this field. How this mode is applied depends on the #modePolicy.",
+                    "type": {
+                        "kind": "ENUM",
+                        "name": "FieldMode",
+                        "ofType": null
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "tooltip",
+                    "description": null,
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "length",
+                    "description": null,
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "Int",
+                        "ofType": null
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "name",
+                    "description": null,
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "placeholder",
+                    "description": null,
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "validations",
+                    "description": null,
+                    "type": {
+                        "kind": "LIST",
+                        "name": null,
+                        "ofType": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "RuleFieldValidationInput",
+                            "ofType": null
+                        }
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "modePolicy",
+                    "description": null,
+                    "type": {
+                        "kind": "ENUM",
+                        "name": "ModePolicy",
+                        "ofType": null
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "required",
+                    "description": null,
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "Boolean",
                         "ofType": null
                     },
                     "defaultValue": null
@@ -2470,6 +2499,53 @@
         },
         {
             "kind": "OBJECT",
+            "name": "DTLayout",
+            "description": "Generated for de.quinscape.domainql.model.DTLayout",
+            "fields": [
+                {
+                    "name": "color",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "Float",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "Float",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                }
+            ],
+            "inputFields": null,
+            "interfaces": [],
+            "enumValues": null,
+            "possibleTypes": null
+        },
+        {
+            "kind": "OBJECT",
             "name": "CorgeAssoc",
             "description": "Many-to-many associated type to Corge",
             "fields": [
@@ -2565,53 +2641,6 @@
                                 "ofType": null
                             }
                         }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                }
-            ],
-            "inputFields": null,
-            "interfaces": [],
-            "enumValues": null,
-            "possibleTypes": null
-        },
-        {
-            "kind": "OBJECT",
-            "name": "DTLayout",
-            "description": "Generated for de.quinscape.domainql.model.DTLayout",
-            "fields": [
-                {
-                    "name": "color",
-                    "description": "",
-                    "args": [],
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "String",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "x",
-                    "description": "",
-                    "args": [],
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "Float",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "y",
-                    "description": "",
-                    "args": [],
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "Float",
-                        "ofType": null
                     },
                     "isDeprecated": false,
                     "deprecationReason": null
@@ -4010,6 +4039,22 @@
                     "deprecationReason": null
                 },
                 {
+                    "name": "type",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
                     "name": "fields",
                     "description": "",
                     "args": [],
@@ -4024,22 +4069,6 @@
                                 "name": "MergeResolutionField",
                                 "ofType": null
                             }
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "type",
-                    "description": "",
-                    "args": [],
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
                         }
                     },
                     "isDeprecated": false,
@@ -5178,6 +5207,41 @@
             ],
             "interfaces": null,
             "enumValues": null,
+            "possibleTypes": null
+        },
+        {
+            "kind": "ENUM",
+            "name": "SourceField",
+            "description": null,
+            "fields": null,
+            "inputFields": null,
+            "interfaces": null,
+            "enumValues": [
+                {
+                    "name": "NONE",
+                    "description": null,
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "SCALAR",
+                    "description": null,
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "OBJECT",
+                    "description": null,
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "OBJECT_AND_SCALAR",
+                    "description": null,
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                }
+            ],
             "possibleTypes": null
         },
         {
@@ -7222,95 +7286,6 @@
             "description": "Auto-generated from DataGridLogic, FileAccessLogic, ResourceAccessLogic, ShippingLogic, TestLogic, AutomatonStandardLogic",
             "fields": [
                 {
-                    "name": "iQueryAlternateFoo",
-                    "description": "Alternate iQuery method for Foo",
-                    "args": [
-                        {
-                            "name": "config",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "INPUT_OBJECT",
-                                    "name": "QueryConfigInput",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        }
-                    ],
-                    "type": {
-                        "kind": "OBJECT",
-                        "name": "InteractiveQueryFoo",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "iQueryAlternateBar",
-                    "description": "Alternate iQuery method for Bar",
-                    "args": [
-                        {
-                            "name": "config",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "INPUT_OBJECT",
-                                    "name": "QueryConfigInput",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        }
-                    ],
-                    "type": {
-                        "kind": "OBJECT",
-                        "name": "InteractiveQueryBar",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "domainQlDomain",
-                    "description": "",
-                    "args": [],
-                    "type": {
-                        "kind": "OBJECT",
-                        "name": "Domain",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "iQuerywithColumnConfigFoo",
-                    "description": "",
-                    "args": [
-                        {
-                            "name": "config",
-                            "description": null,
-                            "type": {
-                                "kind": "INPUT_OBJECT",
-                                "name": "QueryConfigInput",
-                                "ofType": null
-                            },
-                            "defaultValue": null
-                        }
-                    ],
-                    "type": {
-                        "kind": "OBJECT",
-                        "name": "InteractiveQueryFoo",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
                     "name": "iQueryFoo",
                     "description": "Queries Foo objects based on the given query config",
                     "args": [
@@ -7905,6 +7880,107 @@
                     "deprecationReason": null
                 },
                 {
+                    "name": "iQueryAlternateFoo",
+                    "description": "Alternate iQuery method for Foo",
+                    "args": [
+                        {
+                            "name": "config",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "QueryConfigInput",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null
+                        }
+                    ],
+                    "type": {
+                        "kind": "OBJECT",
+                        "name": "InteractiveQueryFoo",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "iQueryAlternateBar",
+                    "description": "Alternate iQuery method for Bar",
+                    "args": [
+                        {
+                            "name": "config",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "QueryConfigInput",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null
+                        }
+                    ],
+                    "type": {
+                        "kind": "OBJECT",
+                        "name": "InteractiveQueryBar",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "iQuerywithColumnConfigFoo",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "config",
+                            "description": null,
+                            "type": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "QueryConfigInput",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        }
+                    ],
+                    "type": {
+                        "kind": "OBJECT",
+                        "name": "InteractiveQueryFoo",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "domainQlDomain",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "OBJECT",
+                        "name": "Domain",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "domainQlRelation",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "OBJECT",
+                        "name": "RelationModel",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
                     "name": "getFredFile",
                     "description": "Returns the current content of the fred.json via raw file access.\n<p>\n This method will re-read and reparse the fred.json file on *every* invocation.\n</p>",
                     "args": [],
@@ -7924,22 +8000,6 @@
                         "kind": "OBJECT",
                         "name": "Fred",
                         "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "queryWithList",
-                    "description": "",
-                    "args": [],
-                    "type": {
-                        "kind": "LIST",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "Int",
-                            "ofType": null
-                        }
                     },
                     "isDeprecated": false,
                     "deprecationReason": null
@@ -8001,6 +8061,22 @@
                         "kind": "OBJECT",
                         "name": "PagedFoo",
                         "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "queryWithList",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "LIST",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        }
                     },
                     "isDeprecated": false,
                     "deprecationReason": null
@@ -8980,73 +9056,6 @@
         },
         {
             "kind": "OBJECT",
-            "name": "AppAttachment",
-            "description": "File/image attachments",
-            "fields": [
-                {
-                    "name": "description",
-                    "description": "Description of the attachment, might be former filename",
-                    "args": [],
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "String",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "id",
-                    "description": "attachment id",
-                    "args": [],
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "type",
-                    "description": "Attachment media type",
-                    "args": [],
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "url",
-                    "description": "Attachment url as alternative to binary content",
-                    "args": [],
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "String",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                }
-            ],
-            "inputFields": null,
-            "interfaces": [],
-            "enumValues": null,
-            "possibleTypes": null
-        },
-        {
-            "kind": "OBJECT",
             "name": "AppVersion",
             "description": "Stores merge version metadata",
             "fields": [
@@ -9181,6 +9190,73 @@
             "possibleTypes": null
         },
         {
+            "kind": "OBJECT",
+            "name": "AppAttachment",
+            "description": "File/image attachments",
+            "fields": [
+                {
+                    "name": "description",
+                    "description": "Description of the attachment, might be former filename",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "id",
+                    "description": "attachment id",
+                    "args": [],
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "type",
+                    "description": "Attachment media type",
+                    "args": [],
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "url",
+                    "description": "Attachment url as alternative to binary content",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                }
+            ],
+            "inputFields": null,
+            "interfaces": [],
+            "enumValues": null,
+            "possibleTypes": null
+        },
+        {
             "kind": "INPUT_OBJECT",
             "name": "CorgeLinkInput",
             "description": "Many-to-many link type between Corge and CorgeAssoc",
@@ -9244,6 +9320,133 @@
                 }
             ],
             "interfaces": null,
+            "enumValues": null,
+            "possibleTypes": null
+        },
+        {
+            "kind": "OBJECT",
+            "name": "RelationModel",
+            "description": "Generated for de.quinscape.domainql.config.RelationModel",
+            "fields": [
+                {
+                    "name": "sourceFields",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "LIST",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "targetType",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "leftSideObjectName",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "sourceField",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "ENUM",
+                        "name": "SourceField",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "targetField",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "ENUM",
+                        "name": "TargetField",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "sourceType",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "rightSideObjectName",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "id",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "targetFields",
+                    "description": "",
+                    "args": [],
+                    "type": {
+                        "kind": "LIST",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                }
+            ],
+            "inputFields": null,
+            "interfaces": [],
             "enumValues": null,
             "possibleTypes": null
         },
@@ -9736,142 +9939,6 @@
                     "deprecationReason": null
                 },
                 {
-                    "name": "deleteDomainObject",
-                    "description": "Deletes the domain object of the given type and with the given id.",
-                    "args": [
-                        {
-                            "name": "type",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        },
-                        {
-                            "name": "id",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "GenericScalar",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        },
-                        {
-                            "name": "cascade",
-                            "description": null,
-                            "type": {
-                                "kind": "LIST",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        }
-                    ],
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "Boolean",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "updateAssociations",
-                    "description": "Updates the associations of one source domain object over a many-to-many connection / an associative entity",
-                    "args": [
-                        {
-                            "name": "domainType",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        },
-                        {
-                            "name": "leftSideRelation",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        },
-                        {
-                            "name": "sourceIds",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "GenericScalar",
-                                        "ofType": null
-                                    }
-                                }
-                            },
-                            "defaultValue": null
-                        },
-                        {
-                            "name": "domainObjects",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "DomainObject",
-                                        "ofType": null
-                                    }
-                                }
-                            },
-                            "defaultValue": null
-                        }
-                    ],
-                    "type": {
-                        "kind": "LIST",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "GenericScalar",
-                            "ofType": null
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
                     "name": "generateDomainObjectId",
                     "description": "Generate a new domain object id using the application specific IdGenerator implementation.",
                     "args": [
@@ -9898,68 +9965,6 @@
                                 "ofType": null
                             },
                             "defaultValue": "1"
-                        }
-                    ],
-                    "type": {
-                        "kind": "LIST",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "GenericScalar",
-                            "ofType": null
-                        }
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "storeDomainObject",
-                    "description": "Stores a single domain object of any type. Note that you might have to manually register an input type.",
-                    "args": [
-                        {
-                            "name": "domainObject",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "DomainObject",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        }
-                    ],
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "GenericScalar",
-                        "ofType": null
-                    },
-                    "isDeprecated": false,
-                    "deprecationReason": null
-                },
-                {
-                    "name": "storeDomainObjects",
-                    "description": "Stores a list of domain object of any type. Note that you might have to manually register an input type.",
-                    "args": [
-                        {
-                            "name": "domainObjects",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "SCALAR",
-                                        "name": "DomainObject",
-                                        "ofType": null
-                                    }
-                                }
-                            },
-                            "defaultValue": null
                         }
                     ],
                     "type": {
@@ -10111,6 +10116,204 @@
                         "kind": "OBJECT",
                         "name": "MergeResolution",
                         "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "storeDomainObject",
+                    "description": "Stores a single domain object of any type. Note that you might have to manually register an input type.",
+                    "args": [
+                        {
+                            "name": "domainObject",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "DomainObject",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null
+                        }
+                    ],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "GenericScalar",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "storeDomainObjects",
+                    "description": "Stores a list of domain object of any type. Note that you might have to manually register an input type.",
+                    "args": [
+                        {
+                            "name": "domainObjects",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "DomainObject",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            "defaultValue": null
+                        }
+                    ],
+                    "type": {
+                        "kind": "LIST",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "GenericScalar",
+                            "ofType": null
+                        }
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "deleteDomainObject",
+                    "description": "Deletes the domain object of the given type and with the given id.",
+                    "args": [
+                        {
+                            "name": "type",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "id",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "GenericScalar",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "cascade",
+                            "description": null,
+                            "type": {
+                                "kind": "LIST",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null
+                        }
+                    ],
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "Boolean",
+                        "ofType": null
+                    },
+                    "isDeprecated": false,
+                    "deprecationReason": null
+                },
+                {
+                    "name": "updateAssociations",
+                    "description": "Updates the associations of one source domain object over a many-to-many connection / an associative entity",
+                    "args": [
+                        {
+                            "name": "domainType",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "leftSideRelation",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "sourceIds",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "GenericScalar",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "domainObjects",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "DomainObject",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            "defaultValue": null
+                        }
+                    ],
+                    "type": {
+                        "kind": "LIST",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "GenericScalar",
+                            "ofType": null
+                        }
                     },
                     "isDeprecated": false,
                     "deprecationReason": null
@@ -10519,8 +10722,8 @@
         },
         {
             "kind": "SCALAR",
-            "name": "BigDecimal",
-            "description": "BigDecimal wrapped as string",
+            "name": "Date",
+            "description": "SQL date equivalent",
             "fields": null,
             "inputFields": null,
             "interfaces": null,
@@ -10529,8 +10732,8 @@
         },
         {
             "kind": "SCALAR",
-            "name": "Date",
-            "description": "SQL date equivalent",
+            "name": "BigDecimal",
+            "description": "BigDecimal wrapped as string",
             "fields": null,
             "inputFields": null,
             "interfaces": null,
@@ -10674,6 +10877,69 @@
             "possibleTypes": null
         },
         {
+            "kind": "INPUT_OBJECT",
+            "name": "QuxCInput",
+            "description": "Catalog-like connected via id foreign keys to QuxMain twice",
+            "fields": null,
+            "inputFields": [
+                {
+                    "name": "name",
+                    "description": null,
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "description",
+                    "description": null,
+                    "type": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "id",
+                    "description": null,
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    "defaultValue": null
+                },
+                {
+                    "name": "value",
+                    "description": null,
+                    "type": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        }
+                    },
+                    "defaultValue": null
+                }
+            ],
+            "interfaces": null,
+            "enumValues": null,
+            "possibleTypes": null
+        },
+        {
             "kind": "OBJECT",
             "name": "Bar",
             "description": "Domain object used in ext-filter-test. Generated from public.bar in the database dump.",
@@ -10757,69 +11023,6 @@
             ],
             "inputFields": null,
             "interfaces": [],
-            "enumValues": null,
-            "possibleTypes": null
-        },
-        {
-            "kind": "INPUT_OBJECT",
-            "name": "QuxCInput",
-            "description": "Catalog-like connected via id foreign keys to QuxMain twice",
-            "fields": null,
-            "inputFields": [
-                {
-                    "name": "name",
-                    "description": null,
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        }
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "description",
-                    "description": null,
-                    "type": {
-                        "kind": "SCALAR",
-                        "name": "String",
-                        "ofType": null
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "id",
-                    "description": null,
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "String",
-                            "ofType": null
-                        }
-                    },
-                    "defaultValue": null
-                },
-                {
-                    "name": "value",
-                    "description": null,
-                    "type": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                            "kind": "SCALAR",
-                            "name": "Int",
-                            "ofType": null
-                        }
-                    },
-                    "defaultValue": null
-                }
-            ],
-            "interfaces": null,
             "enumValues": null,
             "possibleTypes": null
         },

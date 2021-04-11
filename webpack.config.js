@@ -148,7 +148,35 @@ module.exports = (env,argv) => {
                                 }
                             }
                         ]
+                    },
+
+                    {
+                        oneOf: [
+                            {
+                                test: /\.icon.svg$/,
+                                use: [{
+                                    loader: '@svgr/webpack',
+                                    options: {
+                                        icon: true,
+                                        svgo: true,
+                                        svgoConfig: {
+                                            plugins: {
+                                                addClassesToSVGElement: {
+                                                    classNames: ["icon", "mr-2"]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }]
+                            },
+                            {
+                                test: /\.svg$/,
+                                use: ["@svgr/webpack"]
+
+                            }
+                        ]
                     }
+
 
                 ]
             },

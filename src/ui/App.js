@@ -1,115 +1,150 @@
-import React, { useRef } from "react"
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import React, { useEffect, useState } from "react"
+import cx from "classnames";
+import { toJS } from "mobx";
+import { observer, Observer, useLocalObservable } from "mobx-react-lite";
+
 import useWindowSize from "../util/useWindowSize";
 
-import pkgJSON from "../../package.json"
-import { observer, Observer, useLocalObservable } from "mobx-react-lite";
-import JSONDump from "./JSONDump";
 import AppState from "../model/AppState";
 import Domain from "../model/Domain";
-import { toJS } from "mobx";
+import EntityNode from "./EntityNode";
+import WelcomeModal from "./WelcomeModal";
+import Vector from "../math/Vector";
+import IconButton from "./createIconButton";
+import InteractionContext, { FocusContainer } from "./InteractionContext";
+
+// XXX: hack.. couldn't figure out how to get onMouseMove to see the current offset state
+let offsetX = 0, offsetY = 0;
+
+const App = observer(({state: appState}) => {
+
+    const [pan, setPan] = useState(false);
+    const [offset, setOffset] = useState(new Vector(0,0));
+    const [panOffset, setPanOffset] = useState(new Vector(0,0));
 
 
-function loadJSON(ev)
-{
-    return new Promise((resolve, reject) => {
+    const setOffsetHack = (x,y) => {
+        setOffset( offset => {
 
-        const file = ev.target.files[0];
+            const newOffset = offset.copy().subtract(x, y);
+            offsetX = newOffset.x;
+            offsetY = newOffset.y;
+            return newOffset;
+        })
 
-        const fileReader = new FileReader();
+    }
 
-        fileReader.onload = () => resolve(JSON.parse(fileReader.result));
-
-        fileReader.onerror = reject;
-
-        fileReader.readAsText(file);
-
-    })
-}
-
-
-const App = observer(({}) => {
-
-    const state = useLocalObservable(
+    useEffect(
         () => {
-            const appState = new AppState();
-            appState.domain = Domain.importSchema(require("../../test/schema.json"))
-            console.log("IMPORTED", toJS(appState))
-            return appState;
-        }
+
+            if (pan)
+            {
+                //console.log("PAN ON", panOffset )
+
+                const onMouseMove = ev => {
+
+                    const x = (ev.pageX + offsetX + panOffset.x);
+                    const y = (ev.pageY + offsetY + + panOffset.y);
+                    setOffsetHack(x,y);
+                }
+
+                const onMouseUp = ev => {
+
+                    const x = (ev.pageX + offsetX + panOffset.x);
+                    const y = (ev.pageY + offsetY + + panOffset.y);
+
+                    setPan(false);
+                    setOffsetHack(x,y);
+
+                    //console.log("PAN OFF")
+                };
+
+                document.addEventListener("mousemove", onMouseMove, true)
+                document.addEventListener("mouseup", onMouseUp, true)
+
+                return () => {
+                    document.removeEventListener("mousemove", onMouseMove, true)
+                    document.removeEventListener("mouseup", onMouseUp, true)
+                }
+            }
+        },
+        [ pan ]
     )
+
+    useEffect(
+        () => {
+
+            const onKeyPress = ev => {
+
+                if (ev.keyCode === 36)
+                {
+                    setOffsetHack(0,0)
+                }
+            }
+
+            window.addEventListener("keydown", onKeyPress, true)
+
+            return () =>  {
+                window.removeEventListener("keydown", onKeyPress, true)
+            }
+        },
+        []
+    )
+
 
     const {width, height} = useWindowSize();
 
-    const schemaUploadRef = useRef(null);
-
     return (
-        <Observer>
+        <>
             {
-                () => (
-                    <>
+                !!appState.domain && width && height && (
+                    <InteractionContext.Provider value={ appState.interaction }>
                         <svg
-                            key={ state.id }
+                            key={ appState.id }
+                            className={ cx(pan && "pan") }
                             width={ width }
-                            height={ height}
+                            height={ height }
+                            viewBox={ offset.x + "  " + offset.y+ " " + width + " " + height }
+                            onMouseDown={
+                                ev => {
+                                    const startPan = ev.button === 1 || ev.button === 0 && ev.shiftKey;
+                                    if (startPan)
+                                    {
+                                        setPan(true)
+                                        setPanOffset(new Vector(  - ev.pageX - offset.x, - ev.pageY - offset.y ));
+                                        ev.preventDefault();
+                                    }
+                                }
+                            }
                         >
-
+                            {
+                                !!appState.domain && (
+                                    appState.domain.domainTypes.map(
+                                        (t, idx) => (
+                                            <EntityNode
+                                                key={ t.name }
+                                                type={ t }
+                                                index={ idx }
+                                                onClick={ () => console.log("CLICK", t.name )}
+                                            />
+                                        )
+                                    )
+                                )
+                            }
 
                         </svg>
-
-
-                        <Modal isOpen={!state.domain}>
-                            <ModalHeader>
-                                Automaton Domain v{pkgJSON.version}
-                            </ModalHeader>
-                            <ModalBody>
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col">
-                                            <h1>Welcome to Automaton Domain</h1>
-
-                                            <form className="form mt-3">
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-primary mb-3"
-                                                    onClick={() => {
-                                                        state.newDomain()
-                                                    }}
-                                                >
-                                                    New Domain
-                                                </button>
-
-                                                <div className="form-group">
-                                                    <label
-                                                        htmlFor="schemaUpload"
-                                                    >
-                                                        Import
-                                                    </label>
-                                                    <input
-                                                        ref={ schemaUploadRef }
-                                                        className="form-control-file"
-                                                        type="file"
-                                                        placeholder="schema introspection JSON"
-                                                        accept="application/json"
-                                                        onChange={ ev => loadJSON(ev).then(
-                                                                    data => state.import(data)
-                                                                )}
-                                                    />
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </ModalBody>
-                        </Modal>
-
-                    </>
+                        <FocusContainer/>
+                    </InteractionContext.Provider>
                 )
             }
-        </Observer>
 
+            <WelcomeModal
+                state={appState}
+            />
+
+        </>
     );
 });
 
 export default App;
+

@@ -11,7 +11,8 @@ const names = [
     "Domain",
     "ConfigValue",
     "UniqueConstraint",
-    "ForeignKey"
+    "ForeignKey",
+    "RelationModel"
 ]
 
 import schema from "../src/model/schema.json"

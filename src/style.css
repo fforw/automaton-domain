@@ -4,3 +4,94 @@ body
     margin: 0;
     padding: 0;
 }
+
+.entity *
+{
+    cursor: pointer;
+}
+
+.entity rect
+{
+    fill: var(--dark);
+}
+
+.entity text
+{
+    fill: var(--white);
+}
+
+.entity text.name
+{
+    fill: var(--light);
+    font-weight: bold;
+}
+
+.entity.iq rect
+{
+    stroke: var(--light);
+    stroke-width: 0.5;
+}
+
+.entity text.field-scalar
+{
+    fill: var(--info);
+}
+
+.entity text.field-object, .entity text.field-list
+{
+    fill: var(--success);
+}
+
+.entity text.field-key
+{
+    fill: var(--warning);
+}
+
+.entity.active rect
+{
+    stroke: var(--orange);
+    stroke-width: 2;
+}
+
+body svg.pan
+{
+    cursor: grabbing !important;
+}
+
+
+.icon
+{
+}
+
+.icon:hover
+{
+    fill: #fff;
+}
+
+.entity:hover .iq-db
+{
+    fill: #fff;
+}
+.entity:hover .iq-text
+{
+    fill: #9de0cf;
+}
+
+.entity:hover rect
+{
+    stroke: var(--light);
+    stroke-width: 1;
+}
+
+.entity:hover.active rect
+{
+    stroke: ;
+    stroke-width: 2;
+}
+
+.focus-container
+{
+    position: absolute;
+    left: -10000px;
+    top: 0;
+}

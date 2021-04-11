@@ -935,5 +935,7 @@
             "name"
         ]
     },
-    "genericTypes": []
+    "genericTypes": [],
+    "decimalPrecision": [],
+    "fieldLengths": []
 }
